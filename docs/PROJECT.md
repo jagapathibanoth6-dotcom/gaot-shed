@@ -53,6 +53,7 @@ Last updated: 18 Nov 2026. This is the single place that describes the current d
 
 - Dried paddy straw on the roof (owner's plan, not in estimate).
 - **Roof sprinklers** / drip line along the ridge, fed from the tank (in estimate).
+- **Roof tie-down pipes (v37):** 5 lines of ½ in GI pipe along the full 77 ft roof: one on the ridge, two on each slope (9 ft and 18 ft from the ridge), each sitting over a purlin. J-bolts every 3 ft go through the pipe and the sheet crest into the purlin, with GI + rubber washers and sealant. They clamp the sheets against wind uplift and stop the paddy straw sliding off.
 
 ## Water tank and store room
 
@@ -73,7 +74,7 @@ Last updated: 18 Nov 2026. This is the single place that describes the current d
 |---|---:|
 | 1 Foundation & concrete | 6,44,890 |
 | 2 Steel frame | 13,87,748 |
-| 3 Roof and sheets | 1,97,615 |
+| 3 Roof and sheets | 2,25,048 |
 | 4 Goat floor and walls | 5,37,200 |
 | 5 Hen level | 1,39,835 |
 | 6 Fans and lights | 1,86,600 |
@@ -83,9 +84,9 @@ Last updated: 18 Nov 2026. This is the single place that describes the current d
 | 10 Yard fence, gate, access road | 1,81,170 |
 | 11 Engineer | 1,40,000 |
 | 12 Labour for yard works | 1,08,912 |
-| **Subtotal** | **47,59,244** |
-| Contingency 10% | 4,75,924 |
-| **Total** | **52,35,168** (about ₹1,396 per sq ft) |
+| **Subtotal** | **47,86,677** |
+| Contingency 10% | 4,78,668 |
+| **Total** | **52,65,345** (about ₹1,404 per sq ft) |
 
 - Excluded: solar and batteries, oil palm, fence on the rest of the land, fan-pad, straw cover, electricity connection and borewell permission fees, land filling (done).
 - Owner is the engineer: removing section 11 saves about ₹1.54 lakh with contingency.
@@ -93,7 +94,7 @@ Last updated: 18 Nov 2026. This is the single place that describes the current d
 
 ## 3D / VR model: how it works
 
-- Single HTML file, Three.js r128 from cdnjs, WebXR for the Quest. `index.html` in this repo is the live version (v36).
+- Single HTML file, Three.js r128 from cdnjs, WebXR for the Quest. `index.html` in this repo is the live version (v37).
 - Units: metres inside, shown in feet. Height marks in feet everywhere.
 - Controls: drag to rotate, scroll/pinch to zoom; control panel starts collapsed; viewpoints; in VR, teleport with controllers.
 - Layer groups can be turned on/off: land, tank, dimensions, electrical, bracing, foundation, roof, frame, floor, ramp, under-sheet, poultry, environment, pens.
@@ -103,8 +104,8 @@ Last updated: 18 Nov 2026. This is the single place that describes the current d
 
 ## Version history (versions/ folder)
 
-- v00: original model from the old account. v01–v36: each change in order:
-  feet height marks → plastic floor sheet → levels raised then lowered → hen door moved → blue gutters removed → realistic animals → switchback ramp → 6 pens with 1.5 ft walkways → L-shaped end feeders → mesh types → taps and wide tubs → fans in roof → 7 ft goat clear → steel under-sheet supports → 3 light lines per level → 20,000 L tank + store room → tank to edge, batteries inside → yard fence and gate → full land from Google trace → shed 10 ft from west → tank to the south end (v36, current).
+- v00: original model from the old account. v01–v37: each change in order:
+  feet height marks → plastic floor sheet → levels raised then lowered → hen door moved → blue gutters removed → realistic animals → switchback ramp → 6 pens with 1.5 ft walkways → L-shaped end feeders → mesh types → taps and wide tubs → fans in roof → 7 ft goat clear → steel under-sheet supports → 3 light lines per level → 20,000 L tank + store room → tank to edge, batteries inside → yard fence and gate → full land from Google trace → shed 10 ft from west → tank to the south end (v36) → 5 roof tie-down pipes (v37, current).
 
 ## Open checks before building
 
