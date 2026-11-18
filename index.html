@@ -53,7 +53,7 @@ const pad=new THREE.Mesh(new THREE.PlaneGeometry(96,70),std(0xffffff,1,{map:nois
 const mc=document.createElement('canvas');mc.width=mc.height=32;const mg=mc.getContext('2d');mg.strokeStyle='#5d6264';mg.lineWidth=2.5;mg.beginPath();mg.moveTo(0,0);mg.lineTo(32,32);mg.moveTo(32,0);mg.lineTo(0,32);mg.stroke();
 const meshBase=new THREE.CanvasTexture(mc);meshBase.wrapS=meshBase.wrapT=THREE.RepeatWrapping;meshBase.anisotropy=4;const sq=document.createElement('canvas');sq.width=sq.height=16;const sqg=sq.getContext('2d');sqg.strokeStyle='#7d8387';sqg.lineWidth=1.8;sqg.strokeRect(0,0,16,16);const meshSq=new THREE.CanvasTexture(sq);meshSq.wrapS=meshSq.wrapT=THREE.RepeatWrapping;meshSq.anisotropy=8;
 function wire(w,h,x,y,z,ry,grp){const t=meshSq.clone();t.needsUpdate=true;t.repeat.set(w/0.12,h/0.12);const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true,side:THREE.DoubleSide,depthWrite:false}));m.position.set(x,y,z);m.rotation.y=ry;grp.add(m);}
-const conc=std(0xa9a69e,0.95),steel=std(0x5b5e5f,0.5),wood=std(0x6a7580,0.55,{metalness:0.35}),rail=std(0x4d5153,0.5),FL=11.5,o=2.5,WH=17.8+o-FL,WF=8.6;
+const conc=std(0xa9a69e,0.95),steel=std(0x5b5e5f,0.5),wood=std(0x6a7580,0.55,{metalness:0.35}),rail=std(0x4d5153,0.5),FL=11.5,o=-0.15,WH=17.8+o-FL,WF=8.6;
 const gb=std(0x9a978f,0.95);for(let i=0;i<7;i++){const x=-37.5+i*12.5;[-25,-12.5,0,12.5,25].forEach(z=>{box(1,1.5,1,x,1.25,z,conc,gFound);const ed=Math.abs(z)==25,cw=ed?0.5:0.41,pw=ed?0.95:0.82,top=ed?17.8+o:FL-0.9;box(pw,0.05,pw,x,2.025,z,steel,gFrame);box(cw,top-2.05,cw,x,(2.05+top)/2,z,steel,gFrame);box(2.4,0.9,2.4,x,0.05,z,gb,gFound);});box(0.75,1,50.6,x,0.15,0,gb,gFound);}
 [-25,-12.5,0,12.5,25].forEach(z=>box(75.6,1,0.75,0,0.15,z,gb,gFound));
 [-25,-12.5,0,12.5,25].forEach(z=>box(75.6,0.49,0.27,0,FL-0.65,z,wood,gFrame));
@@ -84,9 +84,9 @@ for(let i=0;i<6;i++)[-12.5,12.5,-25,25].forEach(z=>beam([XS(i)+6.25,FL-0.9,z],[X
 const gElec=mk(),pvc=std(0xe6e3d8,0.6),fanM=std(0x2f3438,0.5),bladeM=std(0xd9d4c4,0.6),ledM=std(0xf6f3e6,0.4,{emissive:0xfff0b8,emissiveIntensity:0.7}),ceilF=[],wallF=[];
 function cyl2(a,b,r,grp){const A=new THREE.Vector3(a[0],a[1],a[2]),B=new THREE.Vector3(b[0],b[1],b[2]),d=B.clone().sub(A),m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,d.length(),8),pvc);m.position.copy(A).add(B).multiplyScalar(0.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());grp.add(m);}
 [-25,-12.5,12.5,25].forEach(x=>{[-12.5,12.5].forEach(z=>{
-cyl2([x,17.65+o,z],[x,16.7+o,z],0.06,gElec);
-const h=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,0.3,16),fanM);h.position.set(x,16.55+o,z);gElec.add(h);
-const g=new THREE.Group();g.position.set(x,16.4+o,z);
+cyl2([x+(x<0?-6.25:6.25),yR(z)-0.1,z],[x+(x<0?-6.25:6.25),18.7+o,z],0.06,gElec);
+const h=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.3,0.3,16),fanM);h.position.set(x+(x<0?-6.25:6.25),18.55+o,z);gElec.add(h);
+const g=new THREE.Group();g.position.set(x+(x<0?-6.25:6.25),18.4+o,z);
 for(let k=0;k<3;k++){const f=k*2.0944,b=new THREE.Mesh(new THREE.BoxGeometry(1.7,0.03,0.35),bladeM);b.position.set(1.15*Math.cos(f),0,-1.15*Math.sin(f));b.rotation.y=f;g.add(b);}
 gElec.add(g);ceilF.push(g);
 const zf=z>0?1.4:-1.4;
@@ -97,10 +97,10 @@ for(let k=0;k<4;k++){const f=k*1.5708,b=new THREE.Mesh(new THREE.BoxGeometry(1.3
 gElec.add(w);wallF.push(w);
 cyl2([x,yS(zf)-0.12,zf],[x,WF+1.55,zf],0.04,gElec);
 });});
-[-25,-12.5,12.5,25].forEach(x=>[-18.75,-6.25,6.25,18.75].forEach(z=>box(4,0.12,0.18,x,17.55+o,z,ledM,gElec)));
+[-25,-12.5,12.5,25].forEach(x=>[-18.75,-6.25,6.25,18.75].forEach(z=>box(4,0.12,0.18,x,17.72+o,z,ledM,gElec)));
 [-31.25,-18.75,-6.25,6.25,18.75,31.25].forEach(x=>[-18.75,-6.25,6.25,18.75].forEach(z=>box(4,0.1,0.16,x,yS(z)-0.25,z,ledM,gElec)));
-[-18.75,-6.25,6.25,18.75].forEach(z=>{cyl2([-37.5,17.35+o,z],[38.3,17.35+o,z],0.05,gElec);cyl2([-37,yS(z)-0.12,z],[37.9,yS(z)-0.12,z],0.05,gElec);});
-[-25,-12.5,12.5,25,38.3].forEach(x=>cyl2([x,17.35+o,-18.75],[x,17.35+o,18.75],0.05,gElec));
+[-18.75,-6.25,6.25,18.75].forEach(z=>{cyl2([-37.5,17.98+o,z],[38.3,17.98+o,z],0.05,gElec);cyl2([-37,yS(z)-0.12,z],[37.9,yS(z)-0.12,z],0.05,gElec);});
+[-25,-12.5,12.5,25,38.3].forEach(x=>cyl2([x,17.98+o,-18.75],[x,17.98+o,18.75],0.05,gElec));
 [-25,-12.5,12.5,25,37.9].forEach(x=>{cyl2([x,yS(-18.75)-0.12,-18.75],[x,yS(0)-0.12,0],0.05,gElec);cyl2([x,yS(0)-0.12,0],[x,yS(18.75)-0.12,18.75],0.05,gElec);});
 cyl2([37.9,3,3.2],[37.9,yS(3.2)-0.12,3.2],0.05,gElec);cyl2([37.9,3,3.2],[39.5,3,3.2],0.05,gElec);
 box(3.4,0.4,2.4,41,0.2,3.2,conc,gElec);box(3,3.5,2,41,2.15,3.2,std(0x4f6f52,0.6),gElec);
@@ -216,7 +216,7 @@ function person(x,y,z){const sk=std(0xc68e5a,0.8),sh=std(0x2f5d8c,0.8),pt=std(0x
 [[0,'Ground 0 ft',-1],[FL-5,'Sheet edge '+fmt(FL-5),-1],[FL-1,'Sheet ridge '+fmt(FL-1),1],[FL,'Goat floor '+fmt(FL),-1],[17.8+o,'Tie beam '+fmt(17.8+o),-1],[PT,'Ridge '+fmt(PT),-1]].forEach(a=>{box(1.6,0.1,0.1,PX+0.9,a[0]+0.05,PZ,dimM,gDim);lab(a[1],PX+a[2]*1.9,Math.max(a[0],0.5),PZ,4.6);});
 [5,10,15,20,25].forEach(h=>{if(h<PT)lab(h+' ft',PX+1,h,PZ,2.2);});}
 vdim(-31,-9,FL,17.65+o,'Clear '+fmt(17.65+o-FL));
-vdim(-25,10.4,FL,16.4+o,'Fan '+fmt(16.4+o-FL)+' up');
+vdim(-31.25,10.4,FL,18.4+o,'Fan '+fmt(18.4+o-FL)+' up');
 vdim(-31,-22.5,0.64,yS(22.5),'Clear '+fmt(yS(22.5)-0.64));
 vdim(-31,0,0.64,FL-1,'Clear '+fmt(FL-1.64));
 vdim(-14.6,-1.4,0.64,WF-1.5,'Under fan '+fmt(WF-2.14));
