@@ -239,9 +239,9 @@ for(let r=0;r<5;r++){const rg2=new THREE.Mesh(new THREE.TorusGeometry(5.27,0.08,
 [[TX-7,TH+3.5,TZ+7],[TX+7,TH+3.5,TZ+7]].forEach(()=>{});[-7,7].forEach(d=>{box(14,0.1,0.1,TX,TH+3.5,TZ+d,steelT,gTank);box(0.1,0.1,14,TX+d,TH+3.5,TZ,steelT,gTank);});
 cyl2([TX+3,TH+0.5,TZ],[TX+3,FL-0.4,TZ],0.09,gTank);cyl2([TX+3,FL-0.4,TZ],[-37.8,FL-0.4,TZ],0.09,gTank);cyl2([-37.8,FL-0.4,TZ],[-37.8,FL-0.4,24.85],0.08,gTank);[-24.85,24.85].forEach(z=>cyl2([-37.8,FL-0.4,z],[-37.8,FL+3.2,z],0.08,gTank));
 box(12,0.3,12,TX,0.15,TZ,conc,gTank);box(13.25,0.6,13.25,TX,9.3,TZ,conc,gTank);
-box(0.75,9,10.75,TX-6,4.5,TZ,brk,gTank);[-6,6].forEach(d=>box(10.75,9,0.75,TX,4.5,TZ+d,brk,gTank));
-[-1,1].forEach(k=>box(0.75,9,3.375,TX+6,4.5,TZ+k*3.6875,brk,gTank));box(0.75,2,4,TX+6,8,TZ,brk,gTank);box(0.15,7,3.8,TX+6.45,3.5,TZ,std(0x6b4f3a,0.7),gTank);
-lab('Store room + batteries',TX+7.8,8.4,TZ,3.6);
+[-6,6].forEach(d=>box(0.75,9,10.75,TX+d,4.5,TZ,brk,gTank));box(10.75,9,0.75,TX,4.5,TZ-6,brk,gTank);
+[-1,1].forEach(k=>box(3.375,9,0.75,TX+k*3.6875,4.5,TZ+6,brk,gTank));box(4,2,0.75,TX,8,TZ+6,brk,gTank);box(3.8,7,0.15,TX,3.5,TZ+6.45,std(0x6b4f3a,0.7),gTank);
+lab('Store room + batteries',TX,8.4,TZ+7.8,3.6);
 lab('Water tank 20,000 L',TX,TH+11.5,TZ,5);lab('Tank base '+fmt(TH),TX-8,TH-1,TZ,3.4);
 
 function mergeGroup(g){g.updateMatrixWorld(true);const B=new Map();
