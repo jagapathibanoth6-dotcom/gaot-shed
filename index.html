@@ -111,31 +111,66 @@ const shM=std(0xbfd0d8,0.7,{side:THREE.DoubleSide});
 function band(len,y,x,z,ry){const m=corr(len,2,shM);m.position.set(x,y,z);m.rotation.y=ry;gFloor.add(m);}
 [-25,25].forEach(z=>{band(75.6,FL+1,0,z,0);band(75.6,FL+WH-1,0,z,0);wire(75,WH-4,0,FL+WH/2,z,0,gFloor);});
 band(50,FL+1,37.5,0,Math.PI/2);band(50,FL+WH-1,37.5,0,Math.PI/2);wire(50,WH-4,37.5,FL+WH/2,0,Math.PI/2,gFloor);
-[[39.5,-5.25],[5.5,22.25]].forEach(q=>{band(q[0],FL+1,-37.5,q[1],Math.PI/2);band(q[0],FL+WH-1,-37.5,q[1],Math.PI/2);wire(q[0],WH-4,-37.5,FL+WH/2,q[1],Math.PI/2,gFloor);});
+[-1,1].forEach(k=>{band(22.5,FL+1,-37.5,k*13.75,Math.PI/2);band(22.5,FL+WH-1,-37.5,k*13.75,Math.PI/2);wire(22.5,WH-4,-37.5,FL+WH/2,k*13.75,Math.PI/2,gFloor);});
 [-18.75,0,18.75].forEach(x=>[-1,1].forEach(k=>wire(22.5,4,x,T,k*13.75,Math.PI/2,gFloor)));
 [-25,25].forEach(z=>box(75,0.15,0.15,0,FL+4,z,rail,gFloor));box(0.15,0.15,50,37.5,FL+4,0,rail,gFloor);
-box(0.15,0.15,39.5,-37.5,FL+4,-5.25,rail,gFloor);box(0.15,0.15,5.5,-37.5,FL+4,22.25,rail,gFloor);
+[-1,1].forEach(k=>box(0.15,0.15,22.5,-37.5,FL+4,k*13.75,rail,gFloor));
 [-18.75,0,18.75].forEach(x=>[-1,1].forEach(k=>box(0.15,0.15,22.5,x,FL+4,k*13.75,rail,gFloor)));
 for(let i=0;i<13;i++)[-25,25].forEach(z=>box(0.2,WH,0.2,-37.5+i*6.25,FL+WH/2,z,rail,gFloor));
-[-25,-2.5,2.5,25].forEach(z=>[-18.75,0,18.75].forEach(x=>box(0.2,4,0.2,x,T,z,rail,gFloor)));[-25,14.5,19.5,25].forEach(z=>box(0.2,4,0.2,-37.5,T,z,rail,gFloor));
+[-25,-2.5,2.5,25].forEach(z=>[-18.75,0,18.75].forEach(x=>box(0.2,4,0.2,x,T,z,rail,gFloor)));[-25,-2.5,2.5,25].forEach(z=>box(0.2,4,0.2,-37.5,T,z,rail,gFloor));
 [-25,25].forEach(z=>box(0.2,4,0.2,37.5,T,z,rail,gFloor));
-for(let i=0;i<4;i++){const cx=-37.5+i*18.75+9.375;[-1,1].forEach(k=>box(15.5,0.8,1.1,cx,FL+0.5,k*23.9,std(0x2f7fc1,0.5),gFloor));const tub=new THREE.Mesh(new THREE.CylinderGeometry(0.9,0.8,0.8,16),std(0x3d7fc0,0.4));tub.position.set(cx,FL+0.5,0);tub.castShadow=true;gFloor.add(tub);}
-const RL=36,ang=Math.atan2(FL,RL);
-const RZ=17,ramp=box(Math.hypot(RL,FL),0.35,5,-37.5-RL/2,FL/2,RZ,wood,gRamp);ramp.rotation.z=ang;ramp.userData.walk=1;
-for(let i=0;i<24;i++){const t=(i+0.5)/24,c=box(0.14,0.12,4.8,-37.5-RL+RL*t,FL*t+0.25,RZ,std(0x2b2f33,0.8),gRamp);c.rotation.z=ang;}
-[RZ-2.5,RZ+2.5].forEach(z=>beam([-37.5-RL,1.2,z],[-37.5,FL+1.2,z],0.18,rail,gRamp));
+for(let i=0;i<4;i++){const cx=-37.5+i*18.75+9.375;const tub=new THREE.Mesh(new THREE.CylinderGeometry(0.9,0.8,0.8,16),std(0x3d7fc0,0.4));tub.position.set(cx,FL+0.5,0);tub.castShadow=true;gFloor.add(tub);}
+const RL=42,cleatM=std(0x2b2f33,0.8);
+function flight(xa,xb,z0,y0,z1,y1){const w=Math.abs(xb-xa),cx=(xa+xb)/2,dy=y1-y0,dz=z1-z0,L=Math.hypot(dy,dz),ax=-Math.atan2(dy,dz);
+const sl=box(w,0.35,L,cx,(y0+y1)/2,(z0+z1)/2,wood,gRamp);sl.rotation.x=ax;sl.userData.walk=1;
+const n=Math.round(Math.abs(dz)/1.4);for(let i=0;i<n;i++){const t=(i+0.5)/n,c=box(w-0.3,0.12,0.14,cx,y0+dy*t+0.25,z0+dz*t,cleatM,gRamp);c.rotation.x=ax;}
+[xa,xb].forEach(x=>{beam([x,y0+3,z0],[x,y1+3,z1],0.16,rail,gRamp);});
+const ym=(y0+y1)/2;if(ym>1.5)[xa,xb].forEach(x=>box(0.3,ym,0.3,x,ym/2,(z0+z1)/2,rail,gRamp));}
+function landing(x0,x1,z0,z1,y){const ld=box(x1-x0,0.35,z1-z0,(x0+x1)/2,y,(z0+z1)/2,wood,gRamp);ld.userData.walk=1;[[x0,z0],[x0,z1],[x1,z0],[x1,z1]].forEach(q=>box(0.35,y,0.35,q[0],y/2,q[1],rail,gRamp));}
+const HM=FL/2;
+flight(-48,-43,0,0,22,HM);
+landing(-48,-37.5,22,27,HM);
+flight(-42.5,-37.6,22,HM,2.5,FL);
+landing(-42.5,-37.6,-2.5,2.5,FL);
+beam([-48,HM+3,27],[-37.5,HM+3,27],0.16,rail,gRamp);beam([-48,HM+3,22],[-48,HM+3,27],0.16,rail,gRamp);
+beam([-42.5,FL+3,-2.5],[-37.6,FL+3,-2.5],0.16,rail,gRamp);beam([-42.5,FL+3,-2.5],[-42.5,FL+3,2.5],0.16,rail,gRamp);
 const D=new THREE.Object3D();
 function lm(px,py,pz,rx,ry,rz,sx,sy,sz){D.position.set(px,py,pz);D.rotation.set(rx,ry,rz);D.scale.set(sx,sy,sz);D.updateMatrix();return D.matrix.clone();}
 const sph=new THREE.SphereGeometry(1,14,10),cyl=new THREE.CylinderGeometry(1,1,1,8),cone=new THREE.ConeGeometry(1,1,8);
 function inst(parts,pl,grp){parts.forEach(pt=>{const im=new THREE.InstancedMesh(pt.g,std(0xffffff,0.9),pl.length);im.castShadow=true;im.receiveShadow=true;pl.forEach((p,i)=>{D.position.set(p.x,p.y,p.z);D.rotation.set(0,p.yaw,0);D.scale.setScalar(p.s);D.updateMatrix();im.setMatrixAt(i,D.matrix.clone().multiply(pt.m));im.setColorAt(i,pt.c!==undefined?new THREE.Color(pt.c):p.col);});grp.add(im);});}
 function scatter(n,x0,x1,z0,z1,md,y,s0,s1,cf){const pts=[];let k=0;while(pts.length<n&&k<8000){k++;const x=x0+rnd()*(x1-x0),z=z0+rnd()*(z1-z0);if(pts.every(q=>(q.x-x)*(q.x-x)+(q.z-z)*(q.z-z)>md*md))pts.push({x:x,y:y,z:z,yaw:rnd()*6.283,s:s0+rnd()*(s1-s0),col:cf()});}return pts;}
 const gc=()=>{const q=rnd();return new THREE.Color(q<0.35?0x2b2623:q<0.65?0x8b5a2b:q<0.8?0xeeeae0:q<0.92?0xb08a5a:0xd4c3a3);};
-const gp=[{g:sph,m:lm(0,1.3,0,0,0,0,1.15,0.6,0.5)},{g:cyl,m:lm(1.03,1.68,0,0,0,-0.7,0.2,0.45,0.2)},{g:sph,m:lm(1.55,2.05,0,0,0,0,0.42,0.26,0.24)},{g:sph,m:lm(1.4,2.12,0.3,0,0,0,0.2,0.06,0.1)},{g:sph,m:lm(1.4,2.12,-0.3,0,0,0,0.2,0.06,0.1)},{g:cyl,m:lm(0.7,0.5,0.28,0,0,0,0.08,0.5,0.08)},{g:cyl,m:lm(0.7,0.5,-0.28,0,0,0,0.08,0.5,0.08)},{g:cyl,m:lm(-0.7,0.5,0.28,0,0,0,0.08,0.5,0.08)},{g:cyl,m:lm(-0.7,0.5,-0.28,0,0,0,0.08,0.5,0.08)},{g:cone,m:lm(-1.2,1.55,0,0,0,1.3,0.12,0.5,0.12),c:0x3a3027},{g:cone,m:lm(1.45,2.4,0.13,0,0,0.5,0.05,0.3,0.05),c:0x6b6558},{g:cone,m:lm(1.45,2.4,-0.13,0,0,0.5,0.05,0.3,0.05),c:0x6b6558}];
-for(let i=0;i<4;i++){const x0=-37.5+i*18.75;inst(gp,scatter(50,x0+1.8,x0+16.9,-21.3,21.3,2.4,FL+0.1,0.95,1.2,gc),gP[i]);}
-const hc=()=>{const q=rnd();return new THREE.Color(q<0.3?0x9c5a2c:q<0.5?0xf2efe6:q<0.7?0x2a2a2a:q<0.9?0xb87a3a:0xc9a27a);};
-const cp=[{g:sph,m:lm(0,0.55,0,0,0,0,0.38,0.28,0.24)},{g:sph,m:lm(0.38,0.88,0,0,0,0,0.11,0.11,0.11)},{g:sph,m:lm(0.4,1.0,0,0,0,0,0.05,0.07,0.02),c:0xc62828},{g:cone,m:lm(0.5,0.87,0,0,0,-1.57,0.04,0.1,0.04),c:0xe0a030},{g:sph,m:lm(-0.4,0.78,0,0,0,0.5,0.2,0.22,0.05)},{g:cyl,m:lm(0.05,0.17,0.09,0,0,0,0.02,0.17,0.02),c:0xd9a441},{g:cyl,m:lm(0.05,0.17,-0.09,0,0,0,0.02,0.17,0.02),c:0xd9a441}];
+const sM=new THREE.SphereGeometry(1,10,7),sS=new THREE.SphereGeometry(1,6,4),cy6=new THREE.CylinderGeometry(1,1,1,6),cn6=new THREE.ConeGeometry(1,1,6);
+function bake(parts){const out={};['coat','fix'].forEach(kind=>{const L=parts.filter(p=>(kind==='coat')===(p.c===undefined));if(!L.length)return;let nv=0,ni=0;const gs=L.map(p=>{const g=p.g.clone();g.applyMatrix4(p.m);nv+=g.attributes.position.count;ni+=g.index.count;return {g,c:new THREE.Color(p.c===undefined?0xffffff:p.c)};});
+const pos=new Float32Array(nv*3),nor=new Float32Array(nv*3),col=new Float32Array(nv*3),idx=new Uint32Array(ni);let vo=0,io=0;
+gs.forEach(q=>{const P=q.g.attributes.position,N=q.g.attributes.normal,I=q.g.index;pos.set(P.array,vo*3);nor.set(N.array,vo*3);for(let i=0;i<P.count;i++){col[(vo+i)*3]=q.c.r;col[(vo+i)*3+1]=q.c.g;col[(vo+i)*3+2]=q.c.b;}for(let i=0;i<I.count;i++)idx[io+i]=I.getX(i)+vo;vo+=P.count;io+=I.count;});
+const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('normal',new THREE.BufferAttribute(nor,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeBoundingSphere();out[kind]=g;});return out;}
+const animM=std(0xffffff,0.88,{vertexColors:true}),WHITE=new THREE.Color(0xffffff);
+function herd(vars,pts,grp){vars.forEach((v,vi)=>{const P=pts.filter(p=>p.v===vi);if(!P.length)return;['coat','fix'].forEach(k=>{if(!v[k])return;const im=new THREE.InstancedMesh(v[k],animM,P.length);im.castShadow=true;im.receiveShadow=true;P.forEach((p,i)=>{D.position.set(p.x,p.y,p.z);D.rotation.set(0,p.yaw,0);D.scale.setScalar(p.s);D.updateMatrix();im.setMatrixAt(i,D.matrix);im.setColorAt(i,k==='coat'?p.col:WHITE);});grp.add(im);});});}
+const P_=(g,px,py,pz,rx,ry,rz,sx,sy,sz,c)=>({g:g,m:lm(px,py,pz,rx,ry,rz,sx,sy,sz),c:c});
+const HOOF=0x2a2522,HORN=0x8a7d6a,NOSE=0x3a2a28,EYE=0x0d0d0d;
+function goatHead(dy){return [P_(sM,1.3,2.32+dy,0,0,0,-0.35,0.34,0.23,0.22),P_(sM,1.62,2.17+dy,0,0,0,-0.35,0.22,0.13,0.14),P_(sS,1.81,2.09+dy,0,0,0,0,0.06,0.07,0.09,NOSE),
+P_(sS,1.3,2.18+dy,0.25,0.35,0,0.2,0.08,0.3,0.05),P_(sS,1.3,2.18+dy,-0.25,-0.35,0,0.2,0.08,0.3,0.05),P_(sS,1.48,2.4+dy,0.15,0,0,0,0.04,0.04,0.04,EYE),P_(sS,1.48,2.4+dy,-0.15,0,0,0,0.04,0.04,0.04,EYE),
+P_(cn6,1.2,2.62+dy,0.09,0,0,0.75,0.045,0.38,0.045,HORN),P_(cn6,1.2,2.62+dy,-0.09,0,0,0.75,0.045,0.38,0.045,HORN),P_(cy6,1.12,2.0+dy,0,0,0,-0.63,0.19,0.75,0.17)];}
+const goatBody=[P_(sM,0,1.58,0,0,0,0,1.05,0.5,0.44),P_(sM,0,1.4,0,0,0,0,0.85,0.4,0.41),P_(sM,0.62,1.62,0,0,0,0,0.5,0.54,0.41),P_(sM,-0.66,1.63,0,0,0,0,0.48,0.5,0.42),P_(cn6,-1.08,1.92,0,0,0,0.9,0.06,0.3,0.06)];
+const goatLegs=[];[[0.64,0.16,0.11,0.07],[0.64,-0.16,0.11,0.07],[-0.7,0.17,0.15,0.07],[-0.7,-0.17,0.15,0.07]].forEach(l=>{goatLegs.push(P_(cy6,l[0],1.02,l[1],0,0,0,l[2],0.72,l[2]),P_(cy6,l[0]+0.03,0.4,l[1],0,0,0,l[3],0.72,l[3]),P_(cy6,l[0]+0.03,0.04,l[1],0,0,0,0.075,0.08,0.075,HOOF));});
+const goatUp=bake(goatBody.concat(goatLegs,goatHead(0)));
+const goatEat=bake(goatBody.concat(goatLegs,[P_(cy6,1.2,1.2,0,0,0,-2.61,0.18,0.95,0.16),P_(sM,1.5,0.72,0,0,0,-1.1,0.3,0.2,0.19),P_(sM,1.62,0.48,0,0,0,-1.3,0.2,0.13,0.14),P_(sS,1.66,0.3,0,0,0,0,0.07,0.06,0.09,NOSE),
+P_(sS,1.4,0.78,0.23,0.3,0,0.4,0.08,0.28,0.05),P_(sS,1.4,0.78,-0.23,-0.3,0,0.4,0.08,0.28,0.05),P_(sS,1.58,0.82,0.14,0,0,0,0.04,0.04,0.04,EYE),P_(sS,1.58,0.82,-0.14,0,0,0,0.04,0.04,0.04,EYE),
+P_(cn6,1.36,1.02,0.09,0,0,0.3,0.045,0.38,0.045,HORN),P_(cn6,1.36,1.02,-0.09,0,0,0.3,0.045,0.38,0.045,HORN)]));
+const goatLie=bake([P_(sM,0,0.62,0,0,0,0,1.2,0.5,0.48),P_(sM,0,0.45,0,0,0,0,1.0,0.38,0.5),P_(sM,0.72,0.66,0,0,0,0,0.5,0.5,0.42),P_(sM,-0.8,0.64,0,0,0,0,0.5,0.46,0.44),P_(cn6,-1.25,0.85,0,0,0,1.3,0.06,0.3,0.06),
+P_(sS,0.75,0.14,0.3,0,0.3,0,0.3,0.12,0.12),P_(sS,0.75,0.14,-0.3,0,-0.3,0,0.3,0.12,0.12),P_(sS,-0.5,0.2,0.38,0,0,0,0.38,0.17,0.14),P_(sS,-0.5,0.2,-0.38,0,0,0,0.38,0.17,0.14)].concat(goatHead(-1.0)));
+const GV=[goatUp,goatEat,goatLie];
+for(let i=0;i<4;i++){const x0=-37.5+i*18.75,pts=scatter(50,x0+1.8,x0+16.9,-22,22,2.4,FL,0.9,1.15,gc);pts.forEach(p=>{const q=rnd();p.v=q<0.55?0:q<0.82?1:2;});herd(GV,pts,gP[i]);}
+const hc=()=>{const q=rnd();return new THREE.Color(q<0.3?0x8a4a22:q<0.5?0xf2efe6:q<0.7?0x262626:q<0.9?0xb4742f:0xc9a27a);};
+const RED=0xc62828,YEL=0xe0a030;
+const henTail=[P_(sS,-0.3,0.86,0,0,0,0.55,0.07,0.26,0.035),P_(sS,-0.33,0.8,0.06,0.35,0,0.8,0.06,0.24,0.03),P_(sS,-0.33,0.8,-0.06,-0.35,0,0.8,0.06,0.24,0.03)];
+const henBody=[P_(sM,0,0.6,0,0,0,0.12,0.34,0.27,0.25),P_(sM,0.17,0.6,0,0,0,0,0.22,0.25,0.22),P_(sS,0.02,0.64,0.22,0,0,0.15,0.25,0.15,0.05),P_(sS,0.02,0.64,-0.22,0,0,0.15,0.25,0.15,0.05),
+P_(cy6,0.04,0.18,0.08,0,0,0,0.022,0.34,0.022,YEL),P_(cy6,0.04,0.18,-0.08,0,0,0,0.022,0.34,0.022,YEL),P_(sS,0.08,0.012,0.08,0,0,0,0.08,0.015,0.05,YEL),P_(sS,0.08,0.012,-0.08,0,0,0,0.08,0.015,0.05,YEL)];
+const henUp=bake(henBody.concat(henTail,[P_(sS,0.27,0.84,0,0,0,-0.3,0.1,0.17,0.09),P_(sM,0.33,1.0,0,0,0,0,0.095,0.095,0.085),P_(sS,0.33,1.11,0,0,0,0,0.08,0.055,0.018,RED),P_(sS,0.41,0.92,0,0,0,0,0.028,0.05,0.018,RED),P_(cn6,0.45,0.99,0,0,0,-1.57,0.028,0.08,0.028,YEL)]));
+const henPeck=bake(henBody.concat(henTail,[P_(sS,0.33,0.5,0,0,0,-1.0,0.09,0.16,0.09),P_(sM,0.45,0.32,0,0,0,0,0.095,0.095,0.085),P_(sS,0.43,0.43,0,0,0,0.6,0.075,0.05,0.018,RED),P_(sS,0.52,0.25,0,0,0,0,0.028,0.05,0.018,RED),P_(cn6,0.55,0.22,0,0,0,-2.4,0.028,0.08,0.028,YEL)]));
 const litter=box(74,0.64,49,0,0.32,0,std(0xd9c27a,1),gPoultry);litter.userData.walk=1;
-inst(cp,scatter(420,-36,36,-23.5,23.5,1.5,0.7,0.85,1.15,hc),gPoultry);
+{const pts=scatter(420,-36,36,-23.5,23.5,1.5,0.64,0.9,1.15,hc);pts.forEach(p=>{p.v=rnd()<0.62?0:1;});herd([henUp,henPeck],pts,gPoultry);}
 const mf=document.createElement('canvas');mf.width=mf.height=64;const mq=mf.getContext('2d');mq.fillStyle='rgba(150,156,160,0.18)';mq.fillRect(0,0,64,64);mq.strokeStyle='#9aa0a4';mq.lineWidth=1;for(let i=0;i<=64;i+=8){mq.beginPath();mq.moveTo(i,0);mq.lineTo(i,64);mq.moveTo(0,i);mq.lineTo(64,i);mq.stroke();}const meshFine=new THREE.CanvasTexture(mf);meshFine.wrapS=meshFine.wrapT=THREE.RepeatWrapping;meshFine.anisotropy=8;
 function wireF(w,h,x,y,z,ry,grp){const t=meshFine.clone();t.needsUpdate=true;t.repeat.set(w/0.5,h/0.5);const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true,side:THREE.DoubleSide,depthWrite:false}));m.position.set(x,y,z);m.rotation.y=ry;grp.add(m);}
 wireF(74,yS(24.5)-3.15,0,(yS(24.5)+3.15)/2,-24.5,0,gPoultry);wireF(74,yS(24.5)-3.15,0,(yS(24.5)+3.15)/2,24.5,0,gPoultry);wireF(4,7,-37,3.5,-17,Math.PI/2,gPoultry);
@@ -166,7 +201,7 @@ vdim(-14.6,-1.4,0.64,WF-1.5,'Under fan '+fmt(WF-2.14));
 lab('Brick wall '+fmt(3.15),-20,3.9,-26.2,3.8);
 lab('Hen door '+fmt(7),-38.6,7.6,-17,3.4);
 lab('Goat wall '+fmt(WH),20,FL+WH/2,-26.6,4);
-lab('Goat ramp '+RL+' ft long',-37.5-RL/2,FL/2+3,RZ,4.4);
+lab('Ramp landing '+fmt(FL/2),-43,FL/2+2.2,24.5,4);
 person(-29,FL,-6);person(-29,0.64,-19);person(-29,0.64,3);
 
 function mergeGroup(g){g.updateMatrixWorld(true);const B=new Map();
@@ -221,7 +256,7 @@ cv.addEventListener('wheel',e=>{e.preventDefault();d=cl(d*(1+e.deltaY*0.001),12,
 r.shadowMap.autoUpdate=false;r.shadowMap.needsUpdate=true;
 const FT=3.2808,UP=new THREE.Vector3(0,1,0),walk=[];sc.traverse(o=>{if(o.userData.walk)walk.push(o);});
 const vis=o=>{for(;o;o=o.parent)if(!o.visible)return false;return true;};
-const VPS=[{n:'Outside, by the shed',p:[-70,0,52],l:[0,0,0]},{n:'Bottom of the ramp',p:[-80,0,17],l:[0,FL,17]},{n:'Goat level, centre aisle',p:[-33,FL,0],l:[40,FL,0]},{n:'Inside goat pen 2',p:[-9,FL,-20],l:[-9,FL,20]},{n:'Poultry level',p:[-32,0.64,0],l:[40,0.64,0]},{n:'Poultry, by the nest boxes',p:[-20,0.64,19],l:[20,0.64,19]},{n:'High above the roof',p:[0,52,85],l:[0,15,0]}];
+const VPS=[{n:'Outside, by the shed',p:[-70,0,52],l:[0,0,0]},{n:'Bottom of the ramp',p:[-45.5,0,-9],l:[-45.5,0,20]},{n:'Goat level, centre aisle',p:[-33,FL,0],l:[40,FL,0]},{n:'Inside goat pen 2',p:[-9,FL,-20],l:[-9,FL,20]},{n:'Poultry level',p:[-32,0.64,0],l:[40,0.64,0]},{n:'Poultry, by the nest boxes',p:[-20,0.64,19],l:[20,0.64,19]},{n:'High above the roof',p:[0,52,85],l:[0,15,0]}];
 const LVL=[['All',null],['Roof level',['roof','brace','elec','env','dim']],['Goat level',['floor','brace','elec','ramp','p0','p1','p2','p3','env','dim']],['Ground level',['found','frame','brace','elec','under','poultry','env','dim']]];
 const V={vp:0,lvl:0};
 function txtTex(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return {g:c.getContext('2d'),t:new THREE.CanvasTexture(c)};}
