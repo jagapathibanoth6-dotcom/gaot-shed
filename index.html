@@ -119,7 +119,7 @@ band(50,FL+1,37.5,0,Math.PI/2);band(50,FL+WH-1,37.5,0,Math.PI/2);wire(50,WH-4,37
 for(let i=0;i<13;i++)[-25,25].forEach(z=>box(0.2,WH,0.2,-37.5+i*6.25,FL+WH/2,z,rail,gFloor));
 [-25,-2.5,2.5,25].forEach(z=>box(0.2,4,0.2,-37.5,T,z,rail,gFloor));
 [-25,25].forEach(z=>box(0.2,4,0.2,37.5,T,z,rail,gFloor));
-const galv=std(0x9aa1a5,0.45,{metalness:0.5}),AW=3,WW=3.5,PW=(75-2*WW)/3,PXS=[0,1,2].map(i=>-37.5+i*(PW+WW));
+const bucketM=std(0x2f2f2f,0.7,{side:THREE.DoubleSide}),waterM=std(0x5d8fb0,0.15),tapM=std(0xb9b1a0,0.35,{metalness:0.6}),tapRed=std(0xc0392b,0.5),galv=std(0x9aa1a5,0.45,{metalness:0.5}),AW=3,WW=3.5,PW=(75-2*WW)/3,PXS=[0,1,2].map(i=>-37.5+i*(PW+WW));
 function bars(L,n,f){for(let b=0;b<=n;b++)f(b*L/n);}
 function feeder(xa,xb,zb,zt){const L=xb-xa,cx=(xa+xb)/2,w=Math.abs(zt-zb)*2-0.2;
 box(L,0.12,w,cx,FL+0.75,zt,galv,gFloor);box(L,0.5,0.08,cx,FL+1.0,zt-w/2,galv,gFloor);box(L,0.5,0.08,cx,FL+1.0,zt+w/2,galv,gFloor);[xa,xb].forEach(x=>box(0.08,0.5,w,x,FL+1.0,zt,galv,gFloor));[xa+0.3,cx,xb-0.3].forEach(x=>box(0.12,0.75,0.12,x,FL+0.375,zt,galv,gFloor));
@@ -131,7 +131,11 @@ PXS.forEach((x0,i)=>{const x1=x0+PW,cx=(x0+x1)/2;[-1,1].forEach(k=>{const za=k>0
  [i>0?[x0,x0-0.55]:null,i<2?[x1,x1+0.55]:null].forEach(q=>{if(!q)return;feederZ(za,zb,q[0],q[1]);[[AW+0.5],[24.5]].forEach(zz=>{wire(1,4,q[0],T,k*zz[0],Math.PI/2,gFloor);box(0.15,0.15,1,q[0],FL+4,k*zz[0],rail,gFloor);});box(0.2,4.2,0.2,q[0],FL+2.1,k*AW,rail,gFloor);box(0.2,4.2,0.2,q[0],FL+2.1,k*25,rail,gFloor);});
  const z=k*AW,gx=i===0?x0+2.3:i===2?x1-2.3:cx;if(i===0)feeder(gx+2.3,x1-0.3,z,k*(AW-0.7));if(i===2)feeder(x0+0.3,gx-2.3,z,k*(AW-0.7));(i===1?[[x0,cx-2],[cx+2,x1]]:[]).forEach(sg=>{const L=sg[1]-sg[0],m=(sg[0]+sg[1])/2;wire(L,4,m,T,z,0,gFloor);box(L,0.15,0.15,m,FL+4,z,rail,gFloor);});
  [gx-2,gx+2].forEach(x=>box(0.2,4.2,0.2,x,FL+2.1,z,rail,gFloor));box(3.8,0.12,0.12,gx,FL+3.8,z,galv,gFloor);box(3.8,0.12,0.12,gx,FL+0.3,z,galv,gFloor);[gx-1.85,gx+1.85].forEach(x=>box(0.12,3.6,0.12,x,FL+2.05,z,galv,gFloor));beam([gx-1.85,FL+0.3,z],[gx+1.85,FL+3.8,z],0.1,galv,gFloor);wire(3.6,3.4,gx,FL+2.05,z,0,gFloor);
- const tub=new THREE.Mesh(new THREE.CylinderGeometry(0.9,0.8,0.8,16),std(0x8a8f91,0.45,{metalness:0.4}));tub.position.set(i===1?cx+4:cx,FL+0.45,k*12);tub.castShadow=true;gFloor.add(tub);});});
+ if(i===0)cyl2([-37.5,FL+3.2,k*24.85],[37.5,FL+3.2,k*24.85],0.07,gFloor);
+ [1/3,2/3].forEach(f=>{const bx=x0+PW*f,bz=k*24.15;const bk=new THREE.Mesh(new THREE.CylinderGeometry(0.68,0.58,1.4,20,1,true),bucketM);bk.position.set(bx,FL+0.7,bz);bk.castShadow=true;gFloor.add(bk);
+ const bt=new THREE.Mesh(new THREE.CircleGeometry(0.58,20),bucketM);bt.rotation.x=-Math.PI/2;bt.position.set(bx,FL+0.03,bz);gFloor.add(bt);const rim=new THREE.Mesh(new THREE.TorusGeometry(0.68,0.04,6,24),bucketM);rim.rotation.x=Math.PI/2;rim.position.set(bx,FL+1.4,bz);gFloor.add(rim);
+ const wt=new THREE.Mesh(new THREE.CircleGeometry(0.645,20),waterM);wt.rotation.x=-Math.PI/2;wt.position.set(bx,FL+1.15,bz);gFloor.add(wt);
+ cyl2([bx,FL+3.2,k*24.85],[bx,FL+2.32,k*24.85],0.05,gFloor);box(0.18,0.22,0.34,bx,FL+2.2,k*24.7,tapM,gFloor);box(0.28,0.06,0.06,bx,FL+2.38,k*24.7,tapRed,gFloor);cyl2([bx,FL+2.12,k*24.56],[bx,FL+1.8,k*24.46],0.035,gFloor);});});});
 const RL=42,cleatM=std(0x2b2f33,0.8);
 function flight(xa,xb,z0,y0,z1,y1){const w=Math.abs(xb-xa),cx=(xa+xb)/2,dy=y1-y0,dz=z1-z0,L=Math.hypot(dy,dz),ax=-Math.atan2(dy,dz);
 const sl=box(w,0.35,L,cx,(y0+y1)/2,(z0+z1)/2,wood,gRamp);sl.rotation.x=ax;sl.userData.walk=1;
@@ -179,7 +183,7 @@ const GV=[goatUp,goatEat,goatLie,goatFeed];
 {const CNT=[34,33,33,34,33,33];[-1,1].forEach((k,ki)=>PXS.forEach((x0,i)=>{const gi=ki*3+i,n=CNT[gi],x1=x0+PW;let pts=[];
 const sides=[];if(i>0)sides.push([x0+1.7,Math.PI]);if(i<2)sides.push([x1-1.7,0]);if(i!==1){const a0=i===0?x0+5:x0+1.2,a1=i===0?x1-1.2:x1-5;for(let j=0;j<6;j++)pts.push({x:a0+(j+0.5)*(a1-a0)/6,y:FL,z:k*(AW+1.7),yaw:k*Math.PI/2+(rnd()-0.5)*0.2,s:0.95+rnd()*0.15,col:gc(),v:3});}
 sides.forEach(sd=>{for(let j=0;j<6;j++)pts.push({x:sd[0],y:FL,z:k*(AW+1.8+(j+0.5)*18.5/6),yaw:sd[1]+(rnd()-0.5)*0.2,s:0.95+rnd()*0.15,col:gc(),v:3});});
-const a=scatter(n-pts.length,x0+(i>0?4.2:1.8),x1-(i<2?4.2:1.8),k>0?(i===1?AW+1.8:AW+3.6):-22.6,k>0?22.6:-(i===1?AW+1.8:AW+3.6),2.4,FL,0.9,1.15,gc);a.forEach(p=>{const q=rnd();p.v=q<0.55?0:q<0.82?1:2;});herd(GV,pts.concat(a),gP[gi]);}));}
+const a=scatter(n-pts.length,x0+(i>0?4.2:1.8),x1-(i<2?4.2:1.8),k>0?(i===1?AW+1.8:AW+3.6):-21.6,k>0?21.6:-(i===1?AW+1.8:AW+3.6),2.4,FL,0.9,1.15,gc);a.forEach(p=>{const q=rnd();p.v=q<0.55?0:q<0.82?1:2;});herd(GV,pts.concat(a),gP[gi]);}));}
 const hc=()=>{const q=rnd();return new THREE.Color(q<0.3?0x8a4a22:q<0.5?0xf2efe6:q<0.7?0x262626:q<0.9?0xb4742f:0xc9a27a);};
 const RED=0xc62828,YEL=0xe0a030;
 const henTail=[P_(sS,-0.3,0.86,0,0,0,0.55,0.07,0.26,0.035),P_(sS,-0.33,0.8,0.06,0.35,0,0.8,0.06,0.24,0.03),P_(sS,-0.33,0.8,-0.06,-0.35,0,0.8,0.06,0.24,0.03)];
@@ -220,7 +224,7 @@ lab('Brick wall '+fmt(3.15),-20,3.9,-26.2,3.8);
 lab('Hen door '+fmt(7),-38.6,7.6,-6.25,3.4);
 lab('Goat wall '+fmt(WH),20,FL+WH/2,-26.6,4);
 lab('Ramp landing '+fmt(FL/2),-43,FL/2+2.2,24.5,4);
-[-1,1].forEach((k,ki)=>PXS.forEach((x0,i)=>lab('Pen '+(ki*3+i+1)+' ('+[34,33,33,34,33,33][ki*3+i]+')',x0+PW/2,FL+5.2,k*3.1,3.2)));[0,1].forEach(i=>[-1,1].forEach(k=>lab('1.5 ft walkway',PXS[i]+PW+WW/2,FL+5.2,k*13,3)));person(-29,FL,0);person(-29,0.64,-19);person(-29,0.64,3);
+[-1,1].forEach((k,ki)=>PXS.forEach((x0,i)=>lab('Pen '+(ki*3+i+1)+' ('+[34,33,33,34,33,33][ki*3+i]+')',x0+PW/2,FL+5.2,k*3.1,3.2)));[0,1].forEach(i=>[-1,1].forEach(k=>lab('1.5 ft walkway',PXS[i]+PW+WW/2,FL+5.2,k*13,3)));person(-29,FL,0);lab('Tap + 40 L bucket',PXS[0]+PW/3,FL+3.9,-23.4,3.6);person(-29,0.64,-19);person(-29,0.64,3);
 
 function mergeGroup(g){g.updateMatrixWorld(true);const B=new Map();
 [...g.children].forEach(m=>{if(!m.isMesh||m.isInstancedMesh||m.userData.walk||Array.isArray(m.material)||m.material.transparent||!m.geometry.index||!m.geometry.attributes.normal)return;
