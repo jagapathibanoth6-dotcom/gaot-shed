@@ -72,6 +72,8 @@ box(77,0.25,1.5,0,23.75+o,0,std(0x9b998f,0.9),gRoof);
 for(let i=0;i<7;i++){const x=-37.5+i*12.5;beam([x,17.9+o,-26.5],[x,23.4+o,0],0.35,wood,gRoof);beam([x,23.4+o,0],[x,17.9+o,26.5],0.35,wood,gRoof);beam([x,17.8+o,-25],[x,17.8+o,25],0.3,wood,gRoof);}
 [-27,-22.5,-18,-13.5,-9,-4.5,0,4.5,9,13.5,18,22.5,27].forEach(z=>beam([-38.5,23.3+o-5.5*Math.abs(z)/27,z],[38.5,23.3+o-5.5*Math.abs(z)/27,z],0.25,wood,gRoof));
 const gBrace=mk(),br=std(0x3f4a52,0.5),XS=i=>-37.5+i*12.5,yR=z=>23.4+o-5.5*Math.abs(z)/26.5,yP=z=>23.1+o-5.5*Math.abs(z)/27,yS=z=>FL-1-4*Math.abs(z)/26;
+for(let i=0;i<7;i++){const x=XS(i);[-1,1].forEach(k=>beam([x,FL-1.15,0],[x,FL-5.15,k*26],0.25,br,gUnder));}
+[0,4.5,9,13.5,18,22.5,25.9].forEach(z=>[-1,1].forEach(k=>{if(z===0&&k>0)return;beam([-37.8,yS(z)-0.22,k*z],[37.8,yS(z)-0.22,k*z],0.18,br,gUnder);}));
 for(let i=0;i<7;i++){const x=XS(i);[0,-13.25,13.25].forEach(z=>beam([x,17.8+o,z],[x,yR(z),z],0.14,br,gBrace));[-13.25,13.25].forEach(z=>beam([x,17.8+o,0],[x,yR(z),z],0.14,br,gBrace));}
 for(let i=0;i<6;i++)if(i==0||i==5)[-1,1].forEach(k=>{const a=XS(i),b=XS(i+1);beam([a,yP(27),k*27],[b,yP(0),0],0.14,br,gBrace);beam([b,yP(27),k*27],[a,yP(0),0],0.14,br,gBrace);});
 [0,5].forEach(i=>[-25,25].forEach(z=>{const a=XS(i),b=XS(i+1);beam([a,FL+0.5,z],[b,FL+WH-0.4,z],0.14,br,gBrace);beam([b,FL+0.5,z],[a,FL+WH-0.4,z],0.14,br,gBrace);}));
