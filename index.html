@@ -71,6 +71,7 @@ slope(77,18.1+o,-27,23.6+o,0,roofM,gRoof);slope(77,18.1+o,27,23.6+o,0,roofM,gRoo
 box(77,0.25,1.5,0,23.75+o,0,std(0x9b998f,0.9),gRoof);
 for(let i=0;i<7;i++){const x=-37.5+i*12.5;beam([x,17.9+o,-26.5],[x,23.4+o,0],0.35,wood,gRoof);beam([x,23.4+o,0],[x,17.9+o,26.5],0.35,wood,gRoof);beam([x,17.8+o,-25],[x,17.8+o,25],0.3,wood,gRoof);}
 [-27,-22.5,-18,-13.5,-9,-4.5,0,4.5,9,13.5,18,22.5,27].forEach(z=>beam([-38.5,23.3+o-5.5*Math.abs(z)/27,z],[38.5,23.3+o-5.5*Math.abs(z)/27,z],0.25,wood,gRoof));
+{const gi=std(0xc9cdd0,0.35,{metalness:0.7}),bolt=std(0x3a3d3f,0.5);[0,-9,9,-18,18].forEach(z=>{const y=z===0?23.93+o:23.6+o-5.5*Math.abs(z)/27+0.17;const m=new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,77,8),gi);m.rotation.z=Math.PI/2;m.position.set(0,y,z);m.castShadow=true;gRoof.add(m);for(let x=-37.5;x<=37.6;x+=3)box(0.1,0.16,0.14,x,y,z,bolt,gRoof);});}
 const gBrace=mk(),br=std(0x3f4a52,0.5),XS=i=>-37.5+i*12.5,yR=z=>23.4+o-5.5*Math.abs(z)/26.5,yP=z=>23.1+o-5.5*Math.abs(z)/27,yS=z=>FL-1-4*Math.abs(z)/26;
 for(let i=0;i<7;i++){const x=XS(i);[-1,1].forEach(k=>beam([x,FL-1.15,0],[x,FL-5.15,k*26],0.25,br,gUnder));}
 [0,4.5,9,13.5,18,22.5,25.9].forEach(z=>[-1,1].forEach(k=>{if(z===0&&k>0)return;beam([-37.8,yS(z)-0.22,k*z],[37.8,yS(z)-0.22,k*z],0.18,br,gUnder);}));
@@ -242,7 +243,7 @@ box(12,0.3,12,TX,0.15,TZ,conc,gTank);box(13.25,0.6,13.25,TX,9.3,TZ,conc,gTank);
 box(0.75,9,10.75,TX+6,4.5,TZ,brk,gTank);[-6,6].forEach(d=>box(10.75,9,0.75,TX,4.5,TZ+d,brk,gTank));
 [-1,1].forEach(k=>box(0.75,9,3.375,TX-6,4.5,TZ+k*3.6875,brk,gTank));box(0.75,2,4,TX-6,8,TZ,brk,gTank);box(0.15,7,3.8,TX-6.45,3.5,TZ,std(0x6b4f3a,0.7),gTank);
 lab('Store room + batteries',TX-7.8,8.4,TZ,3.6);
-lab('Water tank 20,000 L',TX,TH+11.5,TZ,5);lab('Tank base '+fmt(TH),TX+8,TH-1,TZ,3.4);
+lab('½ in GI pipe tie-downs, 5 lines',0,25.6+o,-9,4);lab('Water tank 20,000 L',TX,TH+11.5,TZ,5);lab('Tank base '+fmt(TH),TX+8,TH-1,TZ,3.4);
 
 const FX0=-87.5,FX1=47.5,FZ0=-55,FZ1=35,FH=6,GZ=-5,GW=12;
 function fenceRun(a,b){const dx=b[0]-a[0],dz=b[1]-a[1],L=Math.hypot(dx,dz),mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2;wire(L,FH,mx,FH/2,mz,Math.atan2(-dz,dx),gEnv);beam([a[0],FH,a[1]],[b[0],FH,b[1]],0.1,rail,gEnv);beam([a[0],0.3,a[1]],[b[0],0.3,b[1]],0.1,rail,gEnv);const n=Math.max(1,Math.ceil(L/10));for(let i=0;i<=n;i++){const t=i/n;box(0.3,FH+0.5,0.3,a[0]+dx*t,(FH+0.5)/2,a[1]+dz*t,rail,gEnv);}}
