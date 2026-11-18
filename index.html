@@ -11,7 +11,7 @@ button{font:inherit;font-size:13px;padding:9px 6px;border:1px solid var(--bd);ba
 button.on{background:var(--ab);color:var(--ac);border-color:var(--ac)}
 #tools{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:8px}
 #tools button{width:42px;height:42px;font-size:18px;padding:0}
-#sheet{position:absolute;left:0;right:0;bottom:0;max-height:48%;display:flex;flex-direction:column;background:var(--pn);border-top:1px solid var(--bd);border-radius:14px 14px 0 0}
+#sheet{position:absolute;left:0;right:0;bottom:0;max-height:40%;display:flex;flex-direction:column;background:var(--pn);border-top:1px solid var(--bd);border-radius:14px 14px 0 0}
 #hd{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-weight:500;cursor:pointer}
 #hd span{color:var(--sub);font-weight:400;font-size:13px}
 #ui{overflow-y:auto;padding:0 14px 14px;-webkit-overflow-scrolling:touch}
@@ -27,12 +27,12 @@ h3{font-size:13px;font-weight:500;color:var(--sub);margin:12px 0 6px}
 <div id="hint">Drag to rotate. Two fingers or right-drag to move. Pinch or scroll to zoom.</div>
 <div id="vrbar"><button id="vrb">Enter VR</button><div id="vrs">Checking for a VR headset…</div></div>
 <div id="tools"><button id="zi" aria-label="Zoom in">+</button><button id="zo" aria-label="Zoom out">−</button><button id="zh" aria-label="Overview">⌂</button></div>
-<div id="sheet"><div id="hd"><div>Shed controls</div><span id="tg">Hide</span></div><div id="ui"></div></div></div>
+<div id="sheet" class="min"><div id="hd"><div>Shed controls</div><span id="tg">Show</span></div><div id="ui"></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const cv=document.getElementById('c'),vw=document.getElementById('v');
 const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});
-r.setPixelRatio(Math.min(devicePixelRatio,2));
+r.setPixelRatio(Math.min(devicePixelRatio,1.5));
 r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.xr.enabled=true;r.xr.setReferenceSpaceType('local-floor');
 const sc=new THREE.Scene();sc.background=new THREE.Color(0xcfe6f2);sc.fog=new THREE.Fog(0xcfe6f2,200,460);
 const cam=new THREE.PerspectiveCamera(40,1,1,800);const dolly=new THREE.Group();dolly.add(cam);sc.add(dolly);let vMini=false;
@@ -158,13 +158,13 @@ const sph=new THREE.SphereGeometry(1,14,10),cyl=new THREE.CylinderGeometry(1,1,1
 function inst(parts,pl,grp){parts.forEach(pt=>{const im=new THREE.InstancedMesh(pt.g,std(0xffffff,0.9),pl.length);im.castShadow=true;im.receiveShadow=true;pl.forEach((p,i)=>{D.position.set(p.x,p.y,p.z);D.rotation.set(0,p.yaw,0);D.scale.setScalar(p.s);D.updateMatrix();im.setMatrixAt(i,D.matrix.clone().multiply(pt.m));im.setColorAt(i,pt.c!==undefined?new THREE.Color(pt.c):p.col);});grp.add(im);});}
 function scatter(n,x0,x1,z0,z1,md,y,s0,s1,cf){const pts=[];let k=0;while(pts.length<n&&k<8000){k++;const x=x0+rnd()*(x1-x0),z=z0+rnd()*(z1-z0);if(pts.every(q=>(q.x-x)*(q.x-x)+(q.z-z)*(q.z-z)>md*md))pts.push({x:x,y:y,z:z,yaw:rnd()*6.283,s:s0+rnd()*(s1-s0),col:cf()});}return pts;}
 const gc=()=>{const q=rnd();return new THREE.Color(q<0.35?0x2b2623:q<0.65?0x8b5a2b:q<0.8?0xeeeae0:q<0.92?0xb08a5a:0xd4c3a3);};
-const sM=new THREE.SphereGeometry(1,10,7),sS=new THREE.SphereGeometry(1,6,4),cy6=new THREE.CylinderGeometry(1,1,1,6),cn6=new THREE.ConeGeometry(1,1,6);
+const sM=new THREE.SphereGeometry(1,9,6),sS=new THREE.SphereGeometry(1,6,4),cy6=new THREE.CylinderGeometry(1,1,1,6),cn6=new THREE.ConeGeometry(1,1,6);
 function bake(parts){const out={};['coat','fix'].forEach(kind=>{const L=parts.filter(p=>(kind==='coat')===(p.c===undefined));if(!L.length)return;let nv=0,ni=0;const gs=L.map(p=>{const g=p.g.clone();g.applyMatrix4(p.m);nv+=g.attributes.position.count;ni+=g.index.count;return {g,c:new THREE.Color(p.c===undefined?0xffffff:p.c)};});
 const pos=new Float32Array(nv*3),nor=new Float32Array(nv*3),col=new Float32Array(nv*3),idx=new Uint32Array(ni);let vo=0,io=0;
 gs.forEach(q=>{const P=q.g.attributes.position,N=q.g.attributes.normal,I=q.g.index;pos.set(P.array,vo*3);nor.set(N.array,vo*3);for(let i=0;i<P.count;i++){col[(vo+i)*3]=q.c.r;col[(vo+i)*3+1]=q.c.g;col[(vo+i)*3+2]=q.c.b;}for(let i=0;i<I.count;i++)idx[io+i]=I.getX(i)+vo;vo+=P.count;io+=I.count;});
 const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('normal',new THREE.BufferAttribute(nor,3));g.setAttribute('color',new THREE.BufferAttribute(col,3));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeBoundingSphere();out[kind]=g;});return out;}
 const animM=std(0xffffff,0.88,{vertexColors:true}),WHITE=new THREE.Color(0xffffff);
-function herd(vars,pts,grp){vars.forEach((v,vi)=>{const P=pts.filter(p=>p.v===vi);if(!P.length)return;['coat','fix'].forEach(k=>{if(!v[k])return;const im=new THREE.InstancedMesh(v[k],animM,P.length);im.castShadow=true;im.receiveShadow=true;P.forEach((p,i)=>{D.position.set(p.x,p.y,p.z);D.rotation.set(0,p.yaw,0);D.scale.setScalar(p.s);D.updateMatrix();im.setMatrixAt(i,D.matrix);im.setColorAt(i,k==='coat'?p.col:WHITE);});grp.add(im);});});}
+function herd(vars,pts,grp){vars.forEach((v,vi)=>{const P=pts.filter(p=>p.v===vi);if(!P.length)return;['coat','fix'].forEach(k=>{if(!v[k])return;const im=new THREE.InstancedMesh(v[k],animM,P.length);im.frustumCulled=false;im.castShadow=true;im.receiveShadow=true;P.forEach((p,i)=>{D.position.set(p.x,p.y,p.z);D.rotation.set(0,p.yaw,0);D.scale.setScalar(p.s);D.updateMatrix();im.setMatrixAt(i,D.matrix);im.setColorAt(i,k==='coat'?p.col:WHITE);});grp.add(im);});});}
 const P_=(g,px,py,pz,rx,ry,rz,sx,sy,sz,c)=>({g:g,m:lm(px,py,pz,rx,ry,rz,sx,sy,sz),c:c});
 const HOOF=0x2a2522,HORN=0x8a7d6a,NOSE=0x3a2a28,EYE=0x0d0d0d;
 function goatHead(dy){return [P_(sM,1.3,2.32+dy,0,0,0,-0.35,0.34,0.23,0.22),P_(sM,1.62,2.17+dy,0,0,0,-0.35,0.22,0.13,0.14),P_(sS,1.81,2.09+dy,0,0,0,0,0.06,0.07,0.09,NOSE),
