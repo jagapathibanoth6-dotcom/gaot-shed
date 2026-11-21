@@ -7,14 +7,11 @@ Last updated: 18 Nov 2026. This is the single place that describes the current d
 | What | Where |
 |---|---|
 | 3D / VR model (live, open on phone, PC or Meta Quest 3S) | https://jagapathibanoth6-dotcom.github.io/gaot-shed/ |
-| Same model as a Claude artifact | https://claude.ai/artifact/BnfHTu6HBpX6xfMRHCYpjm |
-| Cost estimate (live sheet, editable) | https://claude.ai/artifact/3Zu6UnYdeN8h2L3ZHA2Rax |
 | GitHub repository | https://github.com/jagapathibanoth6-dotcom/gaot-shed |
-| Old account chat (imported) | https://claude.ai/share/a61f9a52-6d7c-4340-9de3-efaec27f3e41 |
 
 ## Site
 
-- Location: Parvathagiri, Warangal, Telangana, 17°43'54.0"N 79°44'21.1"E. Agricultural land, no flood issue. Sand already filled about 1.5 ft above ground around the farm.
+- Location: Parvathagiri, Warangal, Telangana. Agricultural land, no flood issue. Sand already filled about 1.5 ft above ground around the farm.
 - Directions as the owner uses them: front = North (uttaram, road side), back = South (dakshinam), right = East (turpu), left = West.
 - Land traced from the owner's Google Maps measurement: **13,790 m² = 3.41 acres** (owner calls it 3 acres). Edges: North 512 ft, East 240.37 ft, South 573.24 ft, West 330.44 ft. Perimeter 502 m.
 - Shed sits **10 ft from the west boundary**, near the north (road) side, inside about 15 guntas.

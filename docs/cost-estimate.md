@@ -1,6 +1,5 @@
 # Cost estimate - goat and poultry shed (Nov 2026)
 
-Live sheet: https://claude.ai/artifact/3Zu6UnYdeN8h2L3ZHA2Rax (change Qty/Rate there; totals update).
 
 ## Summary
 
