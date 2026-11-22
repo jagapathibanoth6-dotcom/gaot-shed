@@ -1,0 +1,92 @@
+Item,Qty,Unit,Rate (Rs),Amount (Rs),Section,Basis of rate
+Excavation by JCB (35 pits 5x5x5 ft + tie-beam trenches),16,hour,1300,20800,1 Foundation & concrete,assumed hire rate
+PCC 1:4:8 under footings - cement,21,bag,370,7770,1 Foundation & concrete,PPC cement
+"RCC M20 footings, pedestals, tie beams (45.6 m3) - cement",365,bag,370,135050,1 Foundation & concrete,8 bags/m3
+M-sand (RCC + PCC),39,tonne,1250,48750,1 Foundation & concrete,
+20 mm aggregate (RCC + PCC),71,tonne,1420,100820,1 Foundation & concrete,
+TMT steel Fe500D (about 90 kg/m3),4100,kg,62,254200,1 Foundation & concrete,
+Binding wire,45,kg,60,2700,1 Foundation & concrete,
+Shuttering material (hire / plywood),1,lot,40000,40000,1 Foundation & concrete,assumed
+Concrete mixer hire,15,day,1200,18000,1 Foundation & concrete,assumed
+Anchor bolts M16 J-type with nuts (4 per column),140,no,120,16800,1 Foundation & concrete,assumed
+Edge columns 14 x SHS 150x150x5 (5.07 m each),1604,kg,65,104260,2 Steel frame,
+Inner columns 21 x SHS 125x125x4.8 (2.62 m each),968,kg,65,62920,2 Steel frame,
+"Floor main beams ISMB 200, 5 lines x 23 m",2921,kg,65,189865,2 Steel frame,
+"Floor joists ISMC 75 at 2.5 ft, 31 x 15.4 m",3409,kg,65,221585,2 Steel frame,
+Roof trusses (7 nos),1715,kg,65,111475,2 Steel frame,
+Roof purlins (13 rows x 23.5 m),1528,kg,65,99320,2 Steel frame,
+"Under-floor sheet rafters, purlins, hangers",1301,kg,65,84565,2 Steel frame,
+X-bracing (end bays only),450,kg,65,29250,2 Steel frame,
+Base plates 250x250x12 (35 nos),206,kg,67,13802,2 Steel frame,MS plate
+Goat wall posts and rails,630,kg,65,40950,2 Steel frame,
+Pen partitions and 6 gates,480,kg,65,31200,2 Steel frame,
+Feed fences and troughs (galvanised),1570,kg,80,125600,2 Steel frame,"galvanised, assumed"
+"Ramp: 2 flights, 2 landings, chequered plate, rails",1900,kg,65,123500,2 Steel frame,
+Primer + enamel paint (2 coats),18682,kg,5,93410,2 Steel frame,"per kg of steel, assumed"
+"Welding rods, gas, grinding discs",18682,kg,3,56046,2 Steel frame,"per kg of steel, assumed"
+"Fibre cement sheets 10 ft, 6 mm - main roof + gables",157,sheet,525,82425,3 Roof and sheets,
+Fibre cement sheets 10 ft - under goat floor,138,sheet,525,72450,3 Roof and sheets,
+Ridge caps,26,no,250,6500,3 Roof and sheets,assumed
+Hook bolts with washers,1770,no,12,21240,3 Roof and sheets,assumed
+Bitumen sealant for under-sheet laps,1,lot,15000,15000,3 Roof and sheets,assumed
+"Plastic slatted floor 2x2 ft, 70 mm",3750,sq ft,110,412500,4 Goat floor and walls,
+Wall sheet bands (2 ft top + 2 ft bottom),980,sq ft,60,58800,4 Goat floor and walls,"colour-coated sheet, assumed"
+"Welded mesh 1/2 inch for walls, aisle and gates",1300,sq ft,35,45500,4 Goat floor and walls,
+Water pipe 1 inch PVC + fittings,200,ft,45,9000,4 Goat floor and walls,assumed
+Taps (12) and 40 L wide tubs (12),12,set,950,11400,4 Goat floor and walls,assumed
+"Fly ash bricks (9 in wall, 3 ft 2 in high)",7700,no,6,46200,5 Hen level,
+"Cement for wall footing, mortar, plaster",51,bag,370,18870,5 Hen level,
+"M-sand for wall footing, mortar, plaster",12,tonne,1250,15000,5 Hen level,
+20 mm aggregate for wall footing,7,tonne,1420,9940,5 Hen level,
+Fine sand-filter mesh (walls + gables),1415,sq ft,15,21225,5 Hen level,assumed
+Hen door (steel frame + mesh),1,no,6000,6000,5 Hen level,assumed
+Nest boxes,16,no,600,9600,5 Hen level,assumed
+Feeders 12 + drinkers 8 + perches,1,lot,13000,13000,5 Hen level,assumed
+BLDC ceiling fans 1200 mm (goat level),8,no,3500,28000,6 Fans and lights,
+Wall fans 900 mm (hen level),8,no,10500,84000,6 Fans and lights,earlier dealer listing
+LED tube lights 4 ft 20 W (3 lines x 6 x 2 levels),36,no,350,12600,6 Fans and lights,assumed
+"PVC conduit 25 mm + bends, boxes",800,ft,15,12000,6 Fans and lights,assumed
+Copper wire 1.5 / 2.5 sq mm,1,lot,25000,25000,6 Fans and lights,assumed
+"Distribution board, MCBs, switches",1,lot,15000,15000,6 Fans and lights,assumed
+Earthing (2 pits),2,no,5000,10000,6 Fans and lights,assumed
+Welder / fabricator,125,day,1000,125000,7 Labour (daily wages),assumed
+"Mason (concrete, bricks, plaster)",48,day,886,42528,7 Labour (daily wages),
+Sheet and mesh fitter (skilled),40,day,886,35440,7 Labour (daily wages),
+Bar bender,18,day,864,15552,7 Labour (daily wages),
+Carpenter (shuttering),15,day,910,13650,7 Labour (daily wages),
+Painter,24,day,733,17592,7 Labour (daily wages),
+Electrician,15,day,839,12585,7 Labour (daily wages),
+Plumber,5,day,839,4195,7 Labour (daily wages),
+Helpers (all trades),649,day,618,401082,7 Labour (daily wages),
+Hydra crane hire for trusses and beams,3,day,6000,18000,7 Labour (daily wages),assumed
+"Water tanks 10,000 L (2 nos = 20,000 L)",2,no,70000,140000,"8 Water, borewell, sprinklers",assumed (about Rs 7 per litre)
+"Borewell drilling 6.5 in, about 300 ft",300,ft,100,30000,"8 Water, borewell, sprinklers",assumed; drillers charge Rs 70-350/ft
+PVC casing pipe 7 in (top 40 ft),40,ft,450,18000,"8 Water, borewell, sprinklers",Hyderabad driller rate
+"Submersible pump 1.5 HP with cable, pipes, panel",1,set,55000,55000,"8 Water, borewell, sprinklers",assumed
+"Borewell to tank line, 1.25 in HDPE",250,ft,40,10000,"8 Water, borewell, sprinklers",assumed
+Roof sprinkler booster pump 0.5 HP,1,no,7500,7500,"8 Water, borewell, sprinklers",assumed
+Roof sprinkler pipe 40 mm along ridge + riser,150,ft,70,10500,"8 Water, borewell, sprinklers",assumed
+Mist sprinkler nozzles,40,no,60,2400,"8 Water, borewell, sprinklers",assumed
+"Sprinkler timer, valves, fittings",1,lot,7000,7000,"8 Water, borewell, sprinklers",assumed
+"Cement (stand pillars, footings, slabs, store walls)",137,bag,370,50690,9 Tank stand and store room,dealer/retail rate
+M-sand,17,tonne,1250,21250,9 Tank stand and store room,dealer/retail rate
+20 mm aggregate,19,tonne,1420,26980,9 Tank stand and store room,dealer/retail rate
+TMT steel Fe500D,1540,kg,62,95480,9 Tank stand and store room,dealer/retail rate
+Fly ash bricks for store walls,3600,no,6,21600,9 Tank stand and store room,dealer/retail rate
+Shuttering (hire),1,lot,25000,25000,9 Tank stand and store room,assumed
+Store room steel door,1,no,12000,12000,9 Tank stand and store room,assumed
+"Ladder, top railing, battery-room vent (steel)",250,kg,65,16250,9 Tank stand and store room,dealer/retail rate
+Welded mesh 6 ft high for 510 ft of yard fence,3060,sq ft,22,67320,"10 Yard fence, gate, access road",dealer/retail rate
+"Fence posts angle 50x50x5, 7 ft, in concrete, every 10 ft",53,no,950,50350,"10 Yard fence, gate, access road",assumed
+Main gate 12 ft double leaf,1,no,35000,35000,"10 Yard fence, gate, access road",assumed
+"Access road: murram 6 in thick, 134 x 12 ft",23,m3,900,20700,"10 Yard fence, gate, access road",assumed
+JCB / roller for access road,6,hour,1300,7800,"10 Yard fence, gate, access road",assumed
+Structural design check and drawings,1,lot,40000,40000,11 Engineer,assumed
+Site engineer / supervisor,4,month,25000,100000,11 Engineer,assumed
+"Mason (tank stand, store room)",25,day,886,22150,12 Labour for yard works,dealer/retail rate
+Bar bender,8,day,864,6912,12 Labour for yard works,dealer/retail rate
+Carpenter (shuttering),10,day,910,9100,12 Labour for yard works,dealer/retail rate
+Fence fitter (skilled),10,day,886,8860,12 Labour for yard works,dealer/retail rate
+"Plumber (borewell line, sprinklers)",6,day,839,5034,12 Labour for yard works,dealer/retail rate
+Helpers (yard works),92,day,618,56856,12 Labour for yard works,dealer/retail rate
+Total before contingency,,,,4759244,,
